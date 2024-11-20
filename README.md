@@ -20,7 +20,7 @@ Once installed, the navigation arrows will appear on the ChatGPT interface. Clic
 ## Video Demonstration
 Instead of a screenshot, you can watch the demonstration video here:
 
-[ChatGPT Navigator Video](https://youtu.be/UI6L6Jr2qaw)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UI6L6Jr2qaw" frameborder="0" allowfullscreen></iframe>
 
 ## Logos
 Logos for the extension can be found in the repository. Ensure to include the appropriate icons in your project.
