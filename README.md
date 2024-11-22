@@ -9,6 +9,7 @@ ChatGPT Navigator is a simple browser extension designed to enhance navigation b
 - **Easy navigation** between prompts using up and down arrows.  
 - **Smooth scrolling** to the selected prompt or response.  
 - **Dynamic updates** for new conversations as they start.  
+- **Keyboard Support:** Use your **PC arrow keys** (`ArrowUp` and `ArrowDown`) to navigate through the conversation quickly.  
 
 ---
 
@@ -24,10 +25,13 @@ ChatGPT Navigator is a simple browser extension designed to enhance navigation b
 ## 🚀 Usage  
 
 1. Open the ChatGPT website.
-2. You'll see navigation arrows on the interface.  
+2. You'll see navigation arrows on the interface:  
    - **⬆️ Up Arrow**: Scroll to the previous prompt.  
    - **⬇️ Down Arrow**: Scroll to the next prompt or response.  
-3. Easily revisit past conversations without endless scrolling!  
+3. Alternatively, use your **keyboard arrow keys**:  
+   - **ArrowUp** for scrolling up.  
+   - **ArrowDown** for scrolling down.  
+4. Easily revisit past conversations without endless scrolling!  
 
 ---
 
@@ -56,11 +60,11 @@ Contributions are welcome! If you have suggestions, bug fixes, or improvements, 
 
 Hey! I’m **Duball**, a self-taught web designer and developer passionate about creating tools that make life easier. I’m currently building **Vortex**, an exciting project designed to simplify token launches and liquidity.  
 
-If you liked this extension, give me a follow on **[Twitter](https://twitter.com/duball69)** (@duball69). I promise to keep dropping more cool, free tools to make your online experience even better!  
+If you liked this extension, give me a follow on **[Twitter](https://twitter.com/duball69)** (@duball69). I will try to keep on dropping more cool, free tools to make life easier!  
 
-Got feedback, ideas for this extension, or looking to build a platform? Feel free to DM me on **[Telegram](https://t.me/duball69)**.  
+Got feedback, ideas for this extension, or looking to build a platform? Feel free to DM me on Telegram: **[t.me/duball69](https://t.me/duball69)**.  
 
-Let’s connect and build something awesome together. 🚀  
+Let’s connect and keep on building!  
 
 ---
 
