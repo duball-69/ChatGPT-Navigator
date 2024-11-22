@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "ChatGPT Navigator",
     "version": "1.4",
-    "description": "A simple extension to add navigation arrows to navigate between user prompts on ChatGPT website",
+    "description": "Tired of endlessly scrolling through ChatGPT conversations to find that one question you asked a while back? ChatGPT Navigator is here to help! This lightweight Chrome and Edge extension adds simple arrow navigation to your ChatGPT interface, making it easy to jump around!",
     "permissions": ["scripting", "activeTab"],
     "content_scripts": [
       {
