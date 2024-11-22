@@ -1,5 +1,3 @@
-// contentScript.js
-
 (function () {
   console.log("ChatGPT Navigation Enhancer is active!");
 
@@ -161,14 +159,7 @@
   upButton.addEventListener("click", scrollToPrevious);
   downButton.addEventListener("click", scrollToNext);
 
-  // Add event listener for keyboard arrows
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowUp") {
-      scrollToPrevious();
-    } else if (event.key === "ArrowDown") {
-      scrollToNext();
-    }
-  });
+
 
   // Monitor for changes in the DOM to refresh the list of <article> elements
   const observer = new MutationObserver((mutationsList, observer) => {
