@@ -1,25 +1,23 @@
 {
-    "manifest_version": 3,
-    "name": "ChatGPT Navigator",
-    "version": "1.4",
+  "manifest_version": 3,
+  "name": "ChatGPT Navigator",
+  "version": "1.4",
   "description": "A ChatGPT navigation tool! Use arrows to jump through conversations quickly and effortlessly. Simple and smooth.",
-  "permissions": ["scripting", "activeTab"],
-    "content_scripts": [
-      {
-        "matches": [
-          "https://chatgpt.com/*",
-          "https://*.chatgpt.com/*",
-          "https://chat.openai.com/*",
-          "https://*.chat.openai.com/*"
-        ],
-        "js": ["contentScript.js"]
-      }
-    ],
-    "icons": {
-      "16": "icon16.png",
-      "32": "icon32.png",
-      "48": "icon48.png",
-      "128": "icon128.png"
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://*.chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://*.chat.openai.com/*"
+      ],
+      "js": ["contentScript.js"]
     }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
   }
-  
+}
