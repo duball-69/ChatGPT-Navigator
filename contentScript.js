@@ -75,16 +75,16 @@
       console.log("No articles found. Refreshed articles list.");
     }
 
-    if (currentIndex === -1) {
-      // Start at the second-to-last article if not initialized
-      currentIndex = articles.length - 2;
-      console.log(`Initialized currentIndex to ${currentIndex} (second-to-last article).`);
-    } else if (currentIndex > 1) {
-      // Decrement by 2 to skip an article
-      currentIndex -= 2;
-      console.log(`Decremented currentIndex by 2. New currentIndex: ${currentIndex}.`);
+    if (currentIndex === 0) {
+      // If at the first article, wrap around to the last article
+      currentIndex = articles.length - 1;
+      console.log("Wrapped to the last article.");
+    } else if (currentIndex === -1 || currentIndex > 0) {
+      // Start at the second-to-last article if not initialized, or move up
+      currentIndex = currentIndex === -1 ? articles.length - 2 : currentIndex - 1;
+      console.log(`Moved to article index: ${currentIndex}`);
     } else {
-      console.log("Already at the beginning or not enough articles to skip.");
+      console.log("Already at the beginning.");
       return;
     }
 
@@ -97,12 +97,10 @@
       } else {
         console.error(`Article at index ${currentIndex} is undefined.`);
       }
-    } else {
-      console.error(`currentIndex ${currentIndex} is out of bounds.`);
     }
   };
 
-  // Scroll down by skipping 1 article, starting at the second article
+  // Scroll down by skipping 1 article
   const scrollToNext = () => {
     if (articles.length === 0) {
       articles = getArticles(); // Refresh the list if no articles are found
@@ -110,34 +108,15 @@
     }
 
     if (currentIndex === -1) {
-      // Start at the second article if not initialized
-      currentIndex = 1;
-      console.log(`Initialized currentIndex to ${currentIndex} (second article).`);
-    } else if (currentIndex < articles.length - 2) {
-      // Increment by 2 to skip an article
-      currentIndex += 2;
-      console.log(`Incremented currentIndex by 2. New currentIndex: ${currentIndex}.`);
+      // Start at the first article if not initialized
+      currentIndex = 0;
+      console.log("Initialized at the first article.");
+    } else if (currentIndex < articles.length - 1) {
+      // Increment by 1 to go to the next article
+      currentIndex++;
+      console.log(`Moved to article index: ${currentIndex}`);
     } else {
-      console.log("Already at the end or not enough articles to skip.");
-
-      // Try to scroll to the bottom or simulate button click
-      const pathD = "M12 21C11.7348 21 11.4804 20.8946 11.2929 20.7071L4.29289 13.7071C3.90237 13.3166 3.90237 12.6834 4.29289 12.2929C4.68342 11.9024 5.31658 11.9024 5.70711 12.2929L11 17.5858V4C11 3.44772 11.4477 3 12 3C12.5523 3 13 3.44772 13 4V17.5858L18.2929 12.2929C18.6834 11.9024 19.3166 11.9024 19.7071 12.2929C20.0976 12.6834 20.0976 13.3166 19.7071 13.7071L12.7071 20.7071C12.5196 20.8946 12.2652 21 12 21Z";
-      const pathElement = document.querySelector(`path[d="${pathD}"]`);
-      if (pathElement) {
-        const button = pathElement.closest("button");
-        if (button) {
-          button.click();
-          console.log('Clicked the "Scroll to Bottom" button.');
-        } else {
-          console.warn('Button containing the SVG path not found.');
-          window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-          console.log("Scrolled to the bottom of the page.");
-        }
-      } else {
-        console.warn('SVG path element not found. Falling back to scrolling to bottom.');
-        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-        console.log("Scrolled to the bottom of the page as fallback.");
-      }
+      console.log("Already at the end.");
       return;
     }
 
@@ -150,8 +129,6 @@
       } else {
         console.error(`Article at index ${currentIndex} is undefined.`);
       }
-    } else {
-      console.error(`currentIndex ${currentIndex} is out of bounds.`);
     }
   };
 
@@ -159,24 +136,15 @@
   upButton.addEventListener("click", scrollToPrevious);
   downButton.addEventListener("click", scrollToNext);
 
-
-
   // Monitor for changes in the DOM to refresh the list of <article> elements
-  const observer = new MutationObserver((mutationsList, observer) => {
+  const observer = new MutationObserver(() => {
     const oldArticles = articles;
     articles = getArticles();
     console.log(`Mutation detected. Updated articles count: ${articles.length}.`);
 
-    // Check if a new conversation has started by comparing article counts
-    if (
-      Math.abs(oldArticles.length - articles.length) > 2 ||
-      currentIndex >= articles.length
-    ) {
-      currentIndex = -1; // Reset index for new conversation
-      console.log("Detected a new conversation. Resetting currentIndex.");
-    } else {
-      // Otherwise, just update the articles list
-      console.log("Articles list updated without resetting currentIndex.");
+    // Prevent resetting currentIndex unnecessarily
+    if (currentIndex >= articles.length) {
+      currentIndex = articles.length - 1;
     }
   });
 
