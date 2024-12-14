@@ -1,9 +1,6 @@
 (function () {
   console.log("ChatGPT Navigation Enhancer is active!");
 
-  // Scroll step in pixels
-  const scrollStep = 100;
-
   // Style the buttons directly
   const style = document.createElement("style");
   style.textContent = `
@@ -64,40 +61,99 @@
   navContainer.appendChild(downButton);
   document.body.appendChild(navContainer);
 
-  // Simple scroll functions
-  const scrollUp = () => {
-    window.scrollBy({ top: -scrollStep, left: 0, behavior: "smooth" });
+  // Function to get all <article> elements
+  const getArticles = () => Array.from(document.querySelectorAll("article"));
+
+  // Initialize variables for tracking navigation
+  let articles = getArticles();
+  let currentIndex = -1;
+
+  // Scroll up by skipping 1 article, starting at the second-to-last article
+  const scrollToPrevious = () => {
+    if (articles.length === 0) {
+      articles = getArticles(); // Refresh the list if no articles are found
+      console.log("No articles found. Refreshed articles list.");
+    }
+
+    if (currentIndex === 0) {
+      // If at the first article, wrap around to the last article
+      currentIndex = articles.length - 1;
+      console.log("Wrapped to the last article.");
+    } else if (currentIndex === -1 || currentIndex > 0) {
+      // Start at the second-to-last article if not initialized, or move up
+      currentIndex = currentIndex === -1 ? articles.length - 2 : currentIndex - 1;
+      console.log(`Moved to article index: ${currentIndex}`);
+    } else {
+      console.log("Already at the beginning.");
+      return;
+    }
+
+    // Ensure currentIndex is within bounds
+    if (currentIndex >= 0 && currentIndex < articles.length) {
+      const targetArticle = articles[currentIndex];
+      if (targetArticle) {
+        targetArticle.scrollIntoView({ behavior: "smooth", block: "start" });
+        console.log(`Scrolled to article index: ${currentIndex}.`);
+      } else {
+        console.error(`Article at index ${currentIndex} is undefined.`);
+      }
+    }
   };
 
-  const scrollDown = () => {
-    window.scrollBy({ top: scrollStep, left: 0, behavior: "smooth" });
+  // Scroll down by skipping 1 article
+  const scrollToNext = () => {
+    if (articles.length === 0) {
+      articles = getArticles(); // Refresh the list if no articles are found
+      console.log("No articles found. Refreshed articles list.");
+    }
+
+    if (currentIndex === -1) {
+      // Start at the first article if not initialized
+      currentIndex = 0;
+      console.log("Initialized at the first article.");
+    } else if (currentIndex < articles.length - 1) {
+      // Increment by 1 to go to the next article
+      currentIndex++;
+      console.log(`Moved to article index: ${currentIndex}`);
+    } else {
+      console.log("Already at the end.");
+      return;
+    }
+
+    // Ensure currentIndex is within bounds
+    if (currentIndex >= 0 && currentIndex < articles.length) {
+      const targetArticle = articles[currentIndex];
+      if (targetArticle) {
+        targetArticle.scrollIntoView({ behavior: "smooth", block: "start" });
+        console.log(`Scrolled to article index: ${currentIndex}.`);
+      } else {
+        console.error(`Article at index ${currentIndex} is undefined.`);
+      }
+    }
   };
 
   // Attach event listeners to the buttons
-  upButton.addEventListener("click", scrollUp);
-  downButton.addEventListener("click", scrollDown);
+  upButton.addEventListener("click", scrollToPrevious);
+  downButton.addEventListener("click", scrollToNext);
 
-  // Add keyboard support for arrow keys
-  document.addEventListener("keydown", (e) => {
-    // If something like an input or textarea is focused, blur it to allow scrolling
-    const activeElement = document.activeElement;
-    const isInput = activeElement && 
-      (activeElement.tagName.toLowerCase() === 'input' || 
-       activeElement.tagName.toLowerCase() === 'textarea' ||
-       activeElement.isContentEditable);
+  // Monitor for changes in the DOM to refresh the list of <article> elements
+  const observer = new MutationObserver(() => {
+    const oldArticles = articles;
+    articles = getArticles();
+    console.log(`Mutation detected. Updated articles count: ${articles.length}.`);
 
-    if (isInput) {
-      activeElement.blur();
-    }
-
-    if (e.key === "ArrowUp") {
-      e.preventDefault();
-      scrollUp();
-    } else if (e.key === "ArrowDown") {
-      e.preventDefault();
-      scrollDown();
+    // Prevent resetting currentIndex unnecessarily
+    if (currentIndex >= articles.length) {
+      currentIndex = articles.length - 1;
     }
   });
 
-  console.log("ChatGPT Navigation Enhancer loaded: arrow keys and buttons now scroll the page.");
+  // Start observing the main content area for changes
+  const mainElement = document.querySelector("main");
+  if (mainElement) {
+    observer.observe(mainElement, { childList: true, subtree: true });
+    console.log("Started observing <main> for DOM changes.");
+  } else {
+    console.warn("Main element not found. Observer not initialized.");
+  }
 })();
