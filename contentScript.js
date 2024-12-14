@@ -156,4 +156,8 @@
   } else {
     console.warn("Main element not found. Observer not initialized.");
   }
+
+  // **No Keydown Event Listener Added**
+  // This ensures that arrow keys are not intercepted by the extension.
+
 })();

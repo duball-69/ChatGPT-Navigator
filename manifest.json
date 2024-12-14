@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "ChatGPT Navigator",
-  "version": "1.5",
-  "description": "A ChatGPT navigation tool! Use arrows to jump through conversations quickly and effortlessly. Simple and smooth.",
+  "version": "1.6",
+  "description": "Use arrows to jump through ChatGPT messages quickly. Simple and smooth.",
   "content_scripts": [
     {
       "matches": [
